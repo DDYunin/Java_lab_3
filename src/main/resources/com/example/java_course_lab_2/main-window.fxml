@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.java_course_lab_2.GameAppController">
+   <left>
+      <Pane fx:id="playersPane" prefHeight="384.0" prefWidth="150.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER">
+         <children>
+            <Arc fx:id="player1" fill="DODGERBLUE" layoutX="74.0" layoutY="83.0" length="270.0" radiusX="54.0" radiusY="50.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
+            <Arc fx:id="player2" fill="DODGERBLUE" layoutX="83.0" layoutY="216.0" length="270.0" radiusX="54.0" radiusY="50.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
+            <Arc fx:id="player3" fill="DODGERBLUE" layoutX="83.0" layoutY="350.0" length="270.0" radiusX="54.0" radiusY="50.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
+            <Arc fx:id="player4" fill="DODGERBLUE" layoutX="83.0" layoutY="486.0" length="270.0" radiusX="54.0" radiusY="50.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" type="ROUND" />
+         </children>
+      </Pane>
+   </left>
+   <bottom>
+      <HBox prefHeight="113.0" prefWidth="1000.0" style="-fx-border-width: 2; -fx-border-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="buttonsPane" prefHeight="109.0" prefWidth="608.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
+               <children>
+                  <Button layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#onReady" prefHeight="40.0" prefWidth="89.0" text="Готов" />
+                  <Button layoutX="135.0" layoutY="23.0" mnemonicParsing="false" onAction="#onPause" prefHeight="40.0" prefWidth="170.0" text="Остановить игру" />
+                  <Button layoutX="334.0" layoutY="24.0" mnemonicParsing="false" onAction="#onShoot" prefHeight="40.0" prefWidth="100.0" text="Выстрел" />
+                  <Button layoutX="460.0" layoutY="25.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="125.0" text="Лидеры" />
+               </children>
+            </Pane>
+            <Pane fx:id="connectPane" prefHeight="109.0" prefWidth="393.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 1;">
+               <children>
+                  <TextField fx:id="connectInput" layoutX="82.0" layoutY="33.0" prefHeight="30.0" prefWidth="157.0" />
+                  <Button fx:id="connectButton" layoutX="269.0" layoutY="35.0" mnemonicParsing="false" onAction="#connectGame" prefHeight="27.0" prefWidth="108.0" text="Подключиться" />
+                  <Label layoutX="36.0" layoutY="32.0" prefHeight="32.0" prefWidth="30.0" text="Имя" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </bottom>
+   <right>
+      <VBox fx:id="infoPane" prefHeight="587.0" prefWidth="230.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="playerInfo1" prefHeight="145.0" prefWidth="230.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="2.0" prefHeight="19.0" prefWidth="99.0" text="Игрок:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="27.0" prefHeight="19.0" prefWidth="199.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="47.0" prefHeight="30.0" prefWidth="105.0" text="Счёт игрока:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="125.0" layoutY="83.0" prefHeight="19.0" prefWidth="90.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="78.0" prefHeight="30.0" prefWidth="98.0" text="Выстрелов:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="124.0" layoutY="52.0" prefHeight="19.0" prefWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="106.0" prefHeight="30.0" prefWidth="98.0" text="Победы:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="119.0" layoutY="111.0" prefHeight="19.0" prefWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="playerInfo11" prefHeight="145.0" prefWidth="230.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="2.0" prefHeight="19.0" prefWidth="99.0" text="Игрок:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="27.0" prefHeight="19.0" prefWidth="199.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="47.0" prefHeight="30.0" prefWidth="105.0" text="Счёт игрока:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="125.0" layoutY="83.0" prefHeight="19.0" prefWidth="90.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="78.0" prefHeight="30.0" prefWidth="98.0" text="Выстрелов:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="124.0" layoutY="52.0" prefHeight="19.0" prefWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="106.0" prefHeight="30.0" prefWidth="98.0" text="Победы:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="119.0" layoutY="111.0" prefHeight="19.0" prefWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="playerInfo12" prefHeight="145.0" prefWidth="230.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="2.0" prefHeight="19.0" prefWidth="99.0" text="Игрок:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="27.0" prefHeight="19.0" prefWidth="199.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="47.0" prefHeight="30.0" prefWidth="105.0" text="Счёт игрока:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="125.0" layoutY="83.0" prefHeight="19.0" prefWidth="90.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="78.0" prefHeight="30.0" prefWidth="98.0" text="Выстрелов:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="124.0" layoutY="52.0" prefHeight="19.0" prefWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="106.0" prefHeight="30.0" prefWidth="98.0" text="Победы:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="119.0" layoutY="111.0" prefHeight="19.0" prefWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="playerInfo13" prefHeight="145.0" prefWidth="230.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="2.0" prefHeight="19.0" prefWidth="99.0" text="Игрок:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="27.0" prefHeight="19.0" prefWidth="199.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="47.0" prefHeight="30.0" prefWidth="105.0" text="Счёт игрока:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="125.0" layoutY="83.0" prefHeight="19.0" prefWidth="90.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="78.0" prefHeight="30.0" prefWidth="98.0" text="Выстрелов:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="124.0" layoutY="52.0" prefHeight="19.0" prefWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="8.0" layoutY="106.0" prefHeight="30.0" prefWidth="98.0" text="Победы:">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="119.0" layoutY="111.0" prefHeight="19.0" prefWidth="92.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </right>
+   <center>
+      <Pane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <children>
+            <Line endX="-1.6666259765625" endY="375.66668701171875" layoutX="373.0" layoutY="211.0" startX="-1.6666259765625" startY="-210.99998474121094" />
+            <Line endX="131.0" endY="365.66668701171875" layoutX="383.0" layoutY="221.0" startX="131.0" startY="-221.00001525878906" />
+            <Circle fx:id="bigCircle" layoutX="371.0" layoutY="178.0" radius="40.0" stroke="BLACK" strokeType="INSIDE">
+               <fill>
+                  <RadialGradient centerX="0.5074074215359158" centerY="0.5063291259958774" radius="0.3384615384615385">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.859649121761322" green="0.3348386287689209" blue="0.1273554265499115" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Circle fx:id="smallCircle" layoutX="513.0" layoutY="428.0" radius="20.0" stroke="BLACK" strokeType="INSIDE">
+               <fill>
+                  <RadialGradient centerX="0.5074074215359158" centerY="0.5063291259958774" radius="0.3384615384615385">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.859649121761322" green="0.3348386287689209" blue="0.1273554265499115" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </RadialGradient>
+               </fill>
+            </Circle>
+            <Line fx:id="line1" endX="-50.33331298828125" endY="-1.52587890625E-5" layoutX="106.0" layoutY="86.0" startX="-100.0" />
+            <Polygon fx:id="nib1" fill="DODGERBLUE" layoutX="107.0" layoutY="88.0" points="-50.0, 12.499984741210938, -32.66667175292969, -1.8333511352539062, -50.0, -14.833358764648438" stroke="BLACK" strokeType="INSIDE" />
+            <Line fx:id="line2" endX="-50.33331298828125" endY="-1.52587890625E-5" layoutX="108.0" layoutY="216.0" startX="-100.0" />
+            <Polygon fx:id="nib2" fill="DODGERBLUE" layoutX="108.0" layoutY="218.0" points="-50.0, 12.499984741210938, -32.33331298828125, -1.5000152587890625, -50.0, -14.833358764648438" stroke="BLACK" strokeType="INSIDE" />
+            <Line fx:id="line4" endX="-50.33331298828125" endY="-1.52587890625E-5" layoutX="109.0" layoutY="487.0" startX="-100.0" />
+            <Polygon fx:id="nib4" fill="DODGERBLUE" layoutX="109.0" layoutY="489.0" points="-50.0, 12.499984741210938, -32.33331298828125, -1.5000152587890625, -50.0, -14.833358764648438" stroke="BLACK" strokeType="INSIDE" />
+            <Line fx:id="line3" endX="-50.33331298828125" endY="-1.52587890625E-5" layoutX="109.0" layoutY="350.0" startX="-100.0" />
+            <Polygon fx:id="nib3" fill="DODGERBLUE" layoutX="109.0" layoutY="352.0" points="-50.0, 12.499984741210938, -32.33331298828125, -1.5000152587890625, -50.0, -14.833358764648438" stroke="BLACK" strokeType="INSIDE" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
