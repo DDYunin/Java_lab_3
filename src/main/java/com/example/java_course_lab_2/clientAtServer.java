@@ -53,6 +53,9 @@ public class clientAtServer implements Runnable {
             message.targetsInfoArrayList = m.getAllTargets();
 //            System.out.println("Мишени = " + message.targetsInfoArrayList);
             message.winnerName = m.getWinner();
+            System.out.println("Лидеры = " + message.leadersArrayList);
+            message.leadersArrayList = m.getLeaders();
+
 //            System.out.println("Победитель = " + message.winnerName);
 
 //            TestGson testGson = new TestGson();
@@ -102,6 +105,10 @@ public class clientAtServer implements Runnable {
                 if (messageFromClient.getClientActions() == ClientActions.READY) {
                     System.out.println("READY " + getUserName());
                     m.clickedReady(mainServer, this.getUserName());
+                }
+
+                if (messageFromClient.getClientActions() == ClientActions.LEADERS) {
+                    m.clickedLeaders(mainServer);
                 }
             }
 

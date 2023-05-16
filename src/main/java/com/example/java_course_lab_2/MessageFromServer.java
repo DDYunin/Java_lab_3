@@ -16,6 +16,9 @@ public class MessageFromServer {
     // Положение цевья стрел в данный момент
     public ArrayList<MyPoint> stickArrowInfoArrayList;
 
+    // Лидеры
+    public ArrayList<ClientInfo> leadersArrayList;
+
     // Победитель
     public String winnerName;
 
@@ -44,6 +47,12 @@ public class MessageFromServer {
         if(stickArrowInfoArrayList != null) {
             for (MyPoint point : stickArrowInfoArrayList) {
                 s += point.toString();
+            }
+        }
+        s += ", ";
+        if(leadersArrayList != null) {
+            for (ClientInfo leader : leadersArrayList) {
+                s += leader.toString();
             }
         }
         s += ", winnerName={" + winnerName + "}";

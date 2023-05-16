@@ -36,6 +36,11 @@ public class MainServer {
     public void serverStart() {
         ServerSocket serverSocket;
         try {
+
+            // Создаём экземпляр класса, который взаимодействует с базой данных
+            DB_jdbc db = new DB_jdbc();
+            m.init(db);
+
             ip = InetAddress.getLocalHost();
             serverSocket = new ServerSocket(port, 0, ip);
             System.out.println("Server Start");

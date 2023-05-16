@@ -10,6 +10,9 @@ public class ClientInfo {
     // Количество выстрелов
     private int numberShots = 0;
 
+    // Количество побед
+    private int numberWins;
+
 
     public ClientInfo(String playerName) {
         this.playerName = playerName;
@@ -27,6 +30,10 @@ public class ClientInfo {
         return numberScores;
     }
 
+    public int getNumberWins() {
+        return numberWins;
+    }
+
     public void addNumberShots(int number) {
         numberShots += number;
     }
@@ -35,9 +42,13 @@ public class ClientInfo {
         this.numberScores += numberScores;
     }
 
+    public void setNumberWins(int numberWins) {
+        this.numberWins = numberWins;
+    }
+
     @Override
     public String toString() {
-        return "ClientInfo{playerName = " + playerName + ", numberScores = " + numberScores + ", numberShots = " + numberShots + "}";
+        return "ClientInfo{playerName = " + playerName + ", numberScores = " + numberScores + ", numberShots = " + numberShots + ", numberWins = " + numberWins + "}";
     }
 
     public void reset() {

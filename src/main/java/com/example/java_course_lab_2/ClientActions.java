@@ -4,5 +4,6 @@ package com.example.java_course_lab_2;
 public enum ClientActions {
     SHOOT,
     READY,
-    PAUSE
+    PAUSE,
+    LEADERS
 }

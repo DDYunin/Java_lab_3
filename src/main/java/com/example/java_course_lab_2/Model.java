@@ -7,6 +7,10 @@ import java.util.ArrayList;
 public class Model {
     // Игроки, что подключились
     ArrayList<ClientInfo> allPlayers = new ArrayList<>();
+
+    // Лидеры
+    ArrayList<ClientInfo> leaders = new ArrayList<>();
+
     // Лист готовых игроков
     ArrayList<String> allReadyPlayers = new ArrayList<>();
     // Хранятся расположение наконечников стрел
@@ -15,6 +19,9 @@ public class Model {
     ArrayList<MyPoint> sticksAllArrows = new ArrayList<>();
     // Расположение мишеней
     ArrayList<Target> allTargets = new ArrayList<>();
+
+    // Ссылка на объект
+    DB_jdbc db;
 
     // Наблюдатели
     ArrayList<IObserver> allObservers = new ArrayList<>();
@@ -31,6 +38,13 @@ public class Model {
     // Конец поля
     int finalPosX = 652, startPosX = 106;
     int[] positionsYNibsArrows = {88, 218, 352, 489};
+
+    // Метод иниициализирует подключение к базе данных
+    public void init(DB_jdbc db) {
+        this.db = db;
+        // Тестируем базу данных
+        System.out.println(db.getAllUserInfo());
+    }
 
     // Обновить фрейм для каждого наблюдателя
     public void update() {
@@ -78,6 +92,16 @@ public class Model {
         }
     }
 
+    // Обработка нажатия кнопки Лидеры
+    public void clickedLeaders(MainServer mainServer) {
+        // Должен убираться игрок из готовых
+        leaders = db.getAllUserInfo();
+        mainServer.broadcast();
+        System.out.println("asdsad: " + leaders);
+    }
+
+
+
     // Обработка запроса на выстрел
     public void clickedShoot(String userName) {
         if (isGameStarted) {
@@ -94,12 +118,28 @@ public class Model {
         }
     }
 
+    private void initNumberWins() {
+        ArrayList<ClientInfo> temp = db.getAllUserInfo();
+        for (ClientInfo allPlayer : allPlayers) {
+            ClientInfo currentUser = temp.stream()
+                    .filter(clientInfo -> clientInfo.getPlayerName().equals(allPlayer.getPlayerName()))
+                    .findFirst()
+                    .orElse(null);
+            if (currentUser != null) {
+                allPlayer.setNumberWins(currentUser.getNumberWins());
+            }
+        }
+    }
+
     // Логика игры в моделе
     public void startGame(MainServer mainServer) {
         Thread thread = new Thread(() -> {
             int bigTargetMove = 5;
             int smallTargetMove = 10;
             int arrowMove = 5;
+
+            // Функция инициализации числа побед
+            initNumberWins();
 
             while (true) {
                 if (!isGameStarted) {
@@ -196,6 +236,9 @@ public class Model {
         allPlayers.forEach(clientDataManager -> {
             if (clientDataManager.getNumberScores() >= 2) {
                 this.winner = clientDataManager.getPlayerName();
+                // Перезаписываем базу данных
+                clientDataManager.setNumberWins(clientDataManager.getNumberWins() + 1);
+                db.writeInfo(clientDataManager);
                 gameReset();
                 return;
             }
@@ -275,6 +318,10 @@ public class Model {
     public ArrayList<ClientInfo> getAllPlayers() {
         return allPlayers;
     }
+    public ArrayList<ClientInfo> getLeaders() {
+        return leaders;
+    }
+
 
     public String getWinner() {
         return winner;
@@ -296,6 +343,10 @@ public class Model {
     public void setAllPlayers(ArrayList<ClientInfo> allPlayers) {
         this.allPlayers = allPlayers;
     }
+    public void setLeaders(ArrayList<ClientInfo> leaders) {
+        this.leaders = leaders;
+    }
+
 
     public void setWinner(String winner) {
         this.winner = winner;

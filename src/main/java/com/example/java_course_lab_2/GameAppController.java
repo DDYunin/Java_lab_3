@@ -1,11 +1,13 @@
 package com.example.java_course_lab_2;
 
 import com.google.gson.Gson;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -13,11 +15,13 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameAppController implements IObserver {
 
@@ -83,6 +87,8 @@ public class GameAppController implements IObserver {
 
     Gson gson = new Gson();
 
+    boolean isShowTable = false;
+
     BufferedReader in;
     PrintWriter out;
 
@@ -147,6 +153,7 @@ public class GameAppController implements IObserver {
                             m.setWinner(messageFromServer.winnerName);
                             m.setNibsAllArrows(messageFromServer.nibArrowInfoArrayList);
                             m.setSticksAllArrows(messageFromServer.stickArrowInfoArrayList);
+                            m.setLeaders(messageFromServer.leadersArrayList);
 
                             // Обноввляем модель
                             m.update();
@@ -200,6 +207,16 @@ public class GameAppController implements IObserver {
         } catch (IOException ignored) { }
     }
 
+    @FXML
+    public void onLeaders() {
+        try {
+            dataOutputStream.writeUTF((gson.toJson(new MessageFromClient(ClientActions.LEADERS))));
+//            isShowTable = true;
+            showLeadersTable();
+
+        } catch (IOException ignored) {}
+    }
+
     public void checkWinner() {
         if (m.getWinner() != null) {
             Platform.runLater(() -> {
@@ -243,6 +260,9 @@ public class GameAppController implements IObserver {
                     // Устанавливаем количество выстрелов игрока
                     tempLabel = (Label) (playersInfoPanes[i]).getChildren().get(5);
                     tempLabel.setText(Integer.toString(clientInfos.get(i).getNumberShots()));
+                    // Устанавливаем количество побед игрока
+                    tempLabel = (Label) (playersInfoPanes[i]).getChildren().get(7);
+                    tempLabel.setText(Integer.toString(clientInfos.get(i).getNumberWins()));
                 } else {
                     playersInfoPanes[i].setVisible(false);
                 }
@@ -295,6 +315,55 @@ public class GameAppController implements IObserver {
         });
     }
 
+    private void showLeadersTable() {
+        TableView tableView = new TableView();
+
+        ArrayList<TableEntity> tableInfo = new ArrayList<>();
+
+        TableColumn<TableEntity, String> column1 =
+                new TableColumn<>("Имя игрока");
+
+        column1.setCellValueFactory(
+                new PropertyValueFactory<>("playerName"));
+
+
+        TableColumn<TableEntity, String> column2 =
+                new TableColumn<>("Количество побед");
+
+        column2.setCellValueFactory(
+                new PropertyValueFactory<>("numberWins"));
+
+        tableView.getColumns().add(column1);
+        tableView.getColumns().add(column2);
+
+        for (int i = 0; i < m.getLeaders().size(); i++) {
+            tableInfo.add(new TableEntity(m.getLeaders().get(i).getPlayerName(), m.getLeaders().get(i).getNumberWins()));
+        }
+
+//        System.out.println("Common");
+//        for (int i = 0; i < m.getLeaders().size(); i++) {
+//            System.out.println(m.getLeaders().get(i));
+//        }
+//        System.out.println("Common = " + m.getLeaders().size());
+//
+//        System.out.println("Common guys");
+//        for (int i = 0; i < tableInfo.size(); i++) {
+//            System.out.println(tableInfo.get(i));
+//        }
+//        System.out.println("Common guys");
+
+        Collections.sort(tableInfo);
+
+        tableInfo.forEach(tableView.getItems()::add);
+        Platform.runLater(() -> {
+            VBox vbox = new VBox(tableView);
+            Scene scene = new Scene(vbox);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        });
+    }
+
     @Override
     public void update() {
         // Перерисовывать расположение мишеней и стрел
@@ -303,5 +372,10 @@ public class GameAppController implements IObserver {
         updatePlayersInfo(m.getAllPlayers());
         updatePlayers(m.getAllPlayers());
         updateArrows(m.getNibsAllArrows(), m.getSticksAllArrows());
+        if (isShowTable) {
+            showLeadersTable();
+            isShowTable = false;
+        }
+        System.out.println("Common = " + m.getLeaders().size());
     }
 }
